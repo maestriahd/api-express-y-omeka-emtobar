@@ -1,4 +1,4 @@
-<h1>Ejemplo de coneccion a OMEKA</h1>
+<h1>Ejemplo de conexión a OMEKA</h1>
 
 <!-- recorre todos los campos de los items para extraer el nombre -->
 {{#each item.element_texts}}
@@ -11,18 +11,22 @@
     <h1>{{this.text}}</h1>
 {{/each}}
 
+{{log items}}
+
 <!-- muestra la imágen en miniatura del elemento -->
 <img src="{{files.0.file_urls.thumbnail}}" alt="">
 
 
-<h1>TODOS LOS ITEMS</h1>
+<h1>TODOS LOS ELEMENTOS DE LA COLECCIÓN</h1>
+
 <!-- recorre todos los elementos -->
 {{#each items}}
   <!-- recorre la lista de textos -->
   {{#each this.element_texts}}
+  {{log this}}
     <!-- si el texto es 'Title' -->
       {{#ifeq this.element.name 'Title'}}
-        <h4>{{this.text}}</h4>
+        <h3>Title: {{this.text}}</h3>
       {{/ifeq}}
     <!-- si el texto es 'Subject' -->
       {{#ifeq this.element.name 'Subject'}}
@@ -30,7 +34,8 @@
       {{/ifeq}}
     <!-- si el texto es 'Description' -->
       {{#ifeq this.element.name 'Description'}}
-        <p>des: {{this.text}}</p>
+        <p>description: {{this.text}}</p>
       {{/ifeq}}
+
   {{/each}}
 {{/each}}

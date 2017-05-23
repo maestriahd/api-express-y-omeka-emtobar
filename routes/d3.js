@@ -14,13 +14,7 @@ var router = express.Router();
 router.get('/', function(req, res) {
   // ejecuta el render de la vista `index` (archivo en `views/index.hbs`)
   // entrega información a la vista para ser inyectada en el HTML
-  res.render('index',
-    { title: 'Express',
-      saludo: 'Colección omeka',
-      numero: 1,
-      gato: 'https://www.mundogato.net/wp-content/uploads/normas-de-higiene-en-los-gatos-1-485x300.jpg'
-    }
-  );
+  res.render('d3',{});
 });
 // exprta la ruta para ser consumida por la aplicación
 module.exports = router;

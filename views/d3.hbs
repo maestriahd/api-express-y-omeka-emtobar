@@ -1,0 +1,52 @@
+<h1>D3</h1>
+<script type="text/javascript">
+
+var request = new XMLHttpRequest();
+
+// variables para construir la URL final para donde se hace la petición
+// servidor proxy para souclionar problemas de CORS (ver README)
+var CORS_PROXY = 'http://192.169.250.12:8088/';
+// usa el proxy?
+var use_cors = true;
+//la URL del API (http://miomeka.org/api)
+var baseUrl = 'http://192.169.250.12/~sandbox/omk/api'
+// el key generado por omeka
+var API_KEY = '=20c49a2ee950699fb2e7d3243addec540c824927'
+
+// comstruye la URL final a partir de los datos suministrados anteriormente
+var URL = '' // variable donde se guardará la URL final
+// Si va a usar el proxy
+if (use_cors){
+  // concatena todas las variables
+  // http://192.169.250.12:8088/http://miomeka.org/api/collections?key=API_KEY
+  URL = CORS_PROXY+baseUrl+'/collections?key='+API_KEY
+// si no usa el proxy
+} else {
+  // concatena todas las variables
+  // http://miomeka.org/api/collections?key=API_KEY
+  URL = baseUrl+'/collection?key='+API_KEY
+}
+
+request.open('GET', 'URL', true);
+
+request.onload = function() {
+  if (request.status >= 200 && request.status < 400) {
+    // Success!
+    var resp = JSON.parse(request.responseText);
+    console.log(resp)
+  } else {
+    // We reached our target server, but it returned an error
+console.log('ups! tenemos un error', request.status)
+  }
+};
+
+
+
+request.onerror = function() {
+  // There was a connection error of some sort
+  console.log ('Error!!')
+};
+
+request.send();
+
+</script>

@@ -4,11 +4,11 @@ var router = express.Router();
 var request = require('request');
 var async = require('async');
 
-const API_KEY = '';  // constante para guardar el API key del omeka
+const API_KEY = '20c49a2ee950699fb2e7d3243addec540c824927';  // constante para guardar el API key del omeka
 
 // objeto que guarda la configuración de la conexion al Omeka
 var server = {
-  baseUrl: '', // la URL del API (http://miomeka.org/api)
+  baseUrl: 'http://192.169.250.12/~sandbox/omk/api', // la URL del API (http://miomeka.org/api)
   uri: '',
   method: 'GET', // método que vamos a usar
   qs: {
@@ -71,7 +71,7 @@ router.get('/', function(req, res) {
     // La función recibe lo entregado en los anteriores pasos en los parámetros
     // `item` y `collection`
     function(item, items, collection, callback) {
-      console.log('peticion a /files');
+      console.log('peticion a /item');
 
       // crea un nuevo objeto de configuración para Request con la información
       // del archivo a descargar
@@ -86,7 +86,7 @@ router.get('/', function(req, res) {
       };
 
       // ejecuta la llamada al servidor
-      request(files, function (error, response, body) {
+      request(server, function (error, response, body) {
         // si hay un error lo reporta y para la ejecución de la cascada
         if(error){
           callback(error);
@@ -96,7 +96,7 @@ router.get('/', function(req, res) {
         if (!error && response.statusCode == 200) {
           // sigue el flujo de acciones de la cascada, entrega al siguiente paso
           // el resultado tanto de esta como las acciones anteriores
-          callback(null, item, items, collection, body);
+          callback(null, item, items, collection, body [0], body);
         }
       });
     }
